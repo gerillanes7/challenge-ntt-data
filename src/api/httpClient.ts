@@ -1,7 +1,7 @@
-import create from "axios";
+import axios from "axios";
 
 const BASE_URL = "https://itunes.apple.com/";
 
-export const httpClient = create({
+export const httpClient = axios.create({
   baseURL: BASE_URL,
 });
