@@ -1,4 +1,4 @@
-import Home from "@pages/Home/Home.screen";
+import Home from "@/pages/Home/Home.screen";
 import { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
