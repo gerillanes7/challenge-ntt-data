@@ -8,7 +8,7 @@ import { PodcastCounter } from "./components/PodcastCounter";
 const INPUT_PLACEHOLDER = "Filter podcasts...";
 
 const Home: FC = () => {
-  const { podcasts, handleFilterPodcasts, podcastCounter } =
+  const { podcasts, handleFilterPodcasts, podcastCounter, search } =
     useHomeController();
 
   return (
@@ -18,6 +18,8 @@ const Home: FC = () => {
         <FilterInput
           placeholder={INPUT_PLACEHOLDER}
           onChange={handleFilterPodcasts}
+          value={search}
+          type="text"
         />
       </FilterContainer>
       <Grid>
