@@ -23,7 +23,7 @@ export const useGetEpisodes = () => {
     if (!feedUrl) return;
     setLoading(LOADING_STATES.LOADING);
     try {
-      const feedResponse = await axios.get(feedUrl);
+      const feedResponse = await axios.get(`https://cors-anywhere.herokuapp.com/${feedUrl}`);
       const feedJson = await parseStringPromise(feedResponse.data);
 
       const episodesFetched = feedJson.rss.channel[0].item.map(
