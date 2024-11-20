@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { TableContainer, TableHeader, TableRow } from "./styled";
 
-type Chapter = {
+type Episode = {
   audioUrl: string;
   description: string;
   pubDate: string;
@@ -11,8 +11,19 @@ type Chapter = {
 };
 
 type TableProps = {
-  data: Chapter[];
-  onClick: (id: string) => void;
+  data: Episode[];
+  onClick: (episode: Episode) => void;
+};
+
+type DataRowProps = {
+  id: string;
+  date: string;
+  duration: string;
+  isEven: boolean;
+  onClick: (episode: Episode) => void;
+  title: string;
+  audio: string;
+  description: string;
 };
 
 const HeaderRow = () => (
@@ -23,23 +34,31 @@ const HeaderRow = () => (
   </TableHeader>
 );
 
-const DataRow = ({
+const DataRow: FC<DataRowProps> = ({
   id,
   date,
   duration,
   isEven,
   onClick,
   title,
-}: {
-  id: string;
-  date: string;
-  duration: string;
-  isEven: boolean;
-  onClick: (id: string) => void;
-  title: string;
+  audio,
+  description,
 }) => (
   <TableRow isEven={isEven}>
-    <td onClick={() => onClick(id)}>{title}</td>
+    <td
+      onClick={() =>
+        onClick({
+          audioUrl: audio,
+          description,
+          duration,
+          pubDate: date,
+          title,
+          id,
+        })
+      }
+    >
+      {title}
+    </td>
     <td>{date}</td>
     <td>{duration}</td>
   </TableRow>
@@ -54,6 +73,8 @@ export const Table: FC<TableProps> = ({ data, onClick }) => {
       <tbody>
         {data?.map((row, i) => (
           <DataRow
+            audio={row.audioUrl}
+            description={row.description}
             date={row.pubDate}
             duration={row.duration}
             id={row.id}

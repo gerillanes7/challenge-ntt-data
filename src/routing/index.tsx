@@ -2,11 +2,11 @@ import { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Layout } from "@/components/Layout";
-import ChapterDetail from "@/pages/EpisodeDetail/Episode.screen";
 import Home from "@/pages/Home/Home.screen";
 import PodcastDetail from "@/pages/PodcastDetail/PodcastDetail.screen";
 import { NavigationPaths } from "./constants";
 import { PodcastLayout } from "@/components/PodcastLayout";
+import EpisodeDetail from "@/pages/EpisodeDetail/Episode.screen";
 
 const Routing: FC = () => {
   return (
@@ -19,7 +19,7 @@ const Routing: FC = () => {
             element={<PodcastLayout />}
           >
             <Route index element={<PodcastDetail />} />
-            <Route path={`${NavigationPaths.EPISODE}/:id`} element={<ChapterDetail />}/>
+            <Route path={`${NavigationPaths.EPISODE}/:id`} element={<EpisodeDetail />}/>
           </Route>
         </Route>
       </Routes>

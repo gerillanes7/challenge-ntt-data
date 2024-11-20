@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetPodcastById } from "./hooks/useGetPodcastById";
-import { useGetChapters } from "./hooks/useGetChapters";
+import { Episode, useGetEpisodes } from "./hooks/useGetEpisodes";
 import { useEffect } from "react";
 import { NavigationPaths } from "@/routing/constants";
 import { usePodcastStore } from "@/stores/podcastStore";
@@ -15,10 +15,13 @@ export const usePodcastDetailController = () => {
 
   const { data } = useGetPodcastById(params.id!);
 
-  const { handleGetChapters, chapters, podcastDescription } = useGetChapters();
+  const { handleGetEpisodes, episodes, podcastDescription } = useGetEpisodes();
 
-  const goToEpisodeDetail = (id: string) => {
-    navigate(`${NavigationPaths.EPISODE}/${id}`);
+  const goToEpisodeDetail = (episode: Episode) => {
+    const { id } = episode
+    navigate(`${NavigationPaths.EPISODE}/${id}`, {
+      state: episode
+    });
   };
 
   const handleSelectedPodcast = () => {
@@ -34,18 +37,18 @@ export const usePodcastDetailController = () => {
 
   useEffect(() => {
     if (data?.results[0].feedUrl) {
-      handleGetChapters(data?.results[0].feedUrl);
+      handleGetEpisodes(data?.results[0].feedUrl);
     }
   }, [data?.results[0].feedUrl]);
 
   useEffect(() => {
-    if (chapters.length && data?.results.length) {
+    if (episodes.length && data?.results.length) {
       handleSelectedPodcast();
     }
-  }, [chapters, data?.results[0]]);
+  }, [episodes, data?.results[0]]);
 
   return {
-    chapters,
+    episodes,
     details: data,
     goToEpisodeDetail,
     podcastDescription,

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { parseStringPromise } from "xml2js";
 
-type Chapter = {
+export type Episode = {
   audioUrl: string;
   description: string;
   duration: string;
@@ -11,18 +11,18 @@ type Chapter = {
   title: string;
 };
 
-export const useGetChapters = () => {
-  const [chapters, setChapters] = useState<Chapter[]>([]);
+export const useGetEpisodes = () => {
+  const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [podcastDescription, setPodcastDescription] = useState<string>("");
 
-  const handleGetChapters = async (feedUrl: string) => {
+  const handleGetEpisodes = async (feedUrl: string) => {
     if (!feedUrl) return;
 
     try {
       const feedResponse = await axios.get(feedUrl);
       const feedJson = await parseStringPromise(feedResponse.data);
       
-      const chaptersFetched = feedJson.rss.channel[0].item.map(
+      const episodesFetched = feedJson.rss.channel[0].item.map(
         (episode: any) => ({
           title: episode.title[0],
           description: episode?.description[0],
@@ -35,12 +35,12 @@ export const useGetChapters = () => {
 
       const description = feedJson.rss.channel[0].description[0];
 
-      setChapters(chaptersFetched);
+      setEpisodes(episodesFetched);
       setPodcastDescription(description);
     } catch (e) {
       console.log("Ocurrió un error: ", e);
     }
   };
 
-  return { handleGetChapters, chapters, podcastDescription };
+  return { handleGetEpisodes, episodes, podcastDescription };
 };

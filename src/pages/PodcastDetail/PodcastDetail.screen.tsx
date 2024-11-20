@@ -8,17 +8,17 @@ import { usePodcastDetailController } from "./PodcastDetail.controller";
 import { Table } from "./components/Table";
 
 const PodcastDetail: FC = () => {
-  const { goToEpisodeDetail, chapters } = usePodcastDetailController();
+  const { goToEpisodeDetail, episodes } = usePodcastDetailController();
 
   return (
     <Container>
-        <CounterContainer>
-          <HeaderTitle>Episodes: {chapters?.length}</HeaderTitle>
-        </CounterContainer>
+      <CounterContainer>
+        <HeaderTitle>Episodes: {episodes?.length}</HeaderTitle>
+      </CounterContainer>
 
-        <CounterContainer>
-          <Table data={chapters} onClick={goToEpisodeDetail} />
-        </CounterContainer>
+      <CounterContainer>
+        <Table data={episodes} onClick={goToEpisodeDetail} />
+      </CounterContainer>
     </Container>
   );
 };
