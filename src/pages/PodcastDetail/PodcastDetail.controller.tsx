@@ -4,6 +4,7 @@ import { Episode, useGetEpisodes } from "./hooks/useGetEpisodes";
 import { useEffect } from "react";
 import { NavigationPaths } from "@/routing/constants";
 import { usePodcastStore } from "@/stores/podcastStore";
+import { normalizeEpisodeId } from "@/helpers/normalizePodcastId";
 
 export const usePodcastDetailController = () => {
   const params = useParams();
@@ -18,9 +19,10 @@ export const usePodcastDetailController = () => {
   const { handleGetEpisodes, episodes, podcastDescription } = useGetEpisodes();
 
   const goToEpisodeDetail = (episode: Episode) => {
-    const { id } = episode
-    navigate(`${NavigationPaths.EPISODE}/${id}`, {
-      state: episode
+    const { id } = episode;
+    const normalizedId = normalizeEpisodeId(id);
+    navigate(`${NavigationPaths.EPISODE}/${normalizedId}`, {
+      state: episode,
     });
   };
 

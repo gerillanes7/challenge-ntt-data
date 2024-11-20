@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type podcast = {
   image: string;
@@ -11,13 +12,20 @@ type podcastState = {
   setPodcastSelected: (podcast: podcast) => void;
 };
 
-export const usePodcastStore = create<podcastState>()((set) => ({
-  podcastSelected: {
-    image: "",
-    trackName: "",
-    artist: "",
-    description: "",
-  },
-  setPodcastSelected: (podcast) =>
-    set((_) => ({ podcastSelected: podcast })),
-}));
+export const usePodcastStore = create<podcastState>()(
+  persist(
+    (set) => ({
+      podcastSelected: {
+        image: "",
+        trackName: "",
+        artist: "",
+        description: "",
+      },
+      setPodcastSelected: (podcast) =>
+        set((_) => ({ podcastSelected: podcast })),
+    }),
+    {
+      name: "podcast-store",
+    }
+  )
+);

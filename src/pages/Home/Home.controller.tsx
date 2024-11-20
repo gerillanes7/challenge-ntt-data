@@ -4,9 +4,14 @@ import { Entry } from "@/services/types";
 import { useNavigate } from "react-router-dom";
 import { NavigationPaths } from "@/routing/constants";
 import { usePodcastStore } from "@/stores/podcastStore";
+import { useLoaderStore } from "@/stores/loadingStore";
+import { LOADING_STATES } from "@/stores/loadingStore/constants";
 
 export const useHomeController = () => {
   const navigate = useNavigate();
+
+  const setLoader = useLoaderStore((state) => state.setLoading);
+
   const [search, setSearch] = useState<string>("");
   const [podcasts, setPodcasts] = useState<Entry[]>([]);
   const [podcastCounter, setPodcastCounter] = useState<number>(0);
@@ -46,6 +51,14 @@ export const useHomeController = () => {
       setPodcastCounter(data.feed.entry.length);
     }
   }, [data?.feed.entry]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setLoader(LOADING_STATES.LOADING);
+    } else {
+      setLoader(LOADING_STATES.IDDLE);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     setPodcastSelected({

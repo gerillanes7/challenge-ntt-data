@@ -6,12 +6,12 @@ export const HeaderContainer = styled.header`
   height: 4rem;
   border-bottom: 1.5px solid #f1f2f7;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 1rem 0 1rem;
 `;
 
 export const HeaderTitle = styled.h2`
   color: #2d9cdb;
-  margin-left: 1rem;
   cursor: pointer;
 `;

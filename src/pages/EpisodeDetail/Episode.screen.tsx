@@ -8,7 +8,7 @@ import {
 import { useLocation } from "react-router-dom";
 
 const EpisodeDetail: FC = () => {
-  const { state: episode } = useLocation();
+  const { state: episode } = useLocation();  
 
   const isHtml = episode.description.includes("<");
 
