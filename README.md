@@ -48,6 +48,12 @@ Y para poder previsualizar la aplicación en modo producción hay que utilizar e
 
 ## Estructura del proyecto
 
+- Elegí esta arquitectura basada en features la cual centra el desarrollo exclusivo por modulos, cada pagina tiene sus propios componentes, hooks, etc.
+- Creé una carpeta de componentes de manera global, el cual almacena componentes que se repitirían en mas de un lugar.
+- La carpeta helpers contiene funciones que se pueden llegar a repetir o se repiten en mas de un lugar, entonces moviendo estas funciones como helpers se evita el DRY, lo mismo para el caso de constants, se mueven a un contexto más global para evitar repeticiones.
+- Utilicé zustand para el manejo de estados globales ya que es de muy fácil integración y mantenible en proyectos chicos como en este caso, ademas de que se puede integrar cache/persistencia de manera muy facil con middlewares que la libreria proporciona.
+- Para el manejo de datos del servidor, utilicé react query, el cual esta optimizado y configurado de manera nativa para el uso de cache y evitar llamadas innecesarias y obtener efectos no deseados.
+
 ```
 ├─ src
 │  ├─ App.tsx
@@ -71,3 +77,4 @@ Y para poder previsualizar la aplicación en modo producción hay que utilizar e
 ├─ tsconfig.node.json
 └─ vite.config.ts
 ```
+
