@@ -42,15 +42,6 @@ export const usePodcastDetailController = () => {
     if (chapters.length && data?.results.length) {
       handleSelectedPodcast();
     }
-
-    return () => {
-      setPodcastSelected({
-        artist: "",
-        description: "",
-        image: "",
-        trackName: "",
-      });
-    };
   }, [chapters, data?.results[0]]);
 
   return {

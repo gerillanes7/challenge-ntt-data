@@ -3,12 +3,17 @@ import { useGetPodcasts } from "./hooks/useGetPodcasts";
 import { Entry } from "@/services/types";
 import { useNavigate } from "react-router-dom";
 import { NavigationPaths } from "@/routing/constants";
+import { usePodcastStore } from "@/stores/podcastStore";
 
 export const useHomeController = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
   const [podcasts, setPodcasts] = useState<Entry[]>([]);
   const [podcastCounter, setPodcastCounter] = useState<number>(0);
+
+  const setPodcastSelected = usePodcastStore(
+    (state) => state.setPodcastSelected
+  );
 
   const { data, isLoading } = useGetPodcasts();
 
@@ -41,6 +46,15 @@ export const useHomeController = () => {
       setPodcastCounter(data.feed.entry.length);
     }
   }, [data?.feed.entry]);
+
+  useEffect(() => {
+    setPodcastSelected({
+      artist: "",
+      description: "",
+      image: "",
+      trackName: "",
+    });
+  }, []);
 
   return {
     podcasts,
