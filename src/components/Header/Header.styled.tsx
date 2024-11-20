@@ -13,4 +13,5 @@ export const HeaderContainer = styled.header`
 export const HeaderTitle = styled.h2`
   color: #2d9cdb;
   margin-left: 1rem;
+  cursor: pointer;
 `;

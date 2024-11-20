@@ -1,8 +1,9 @@
 import { httpClient } from "@/api/httpClient";
-import { Podcasts } from "./types";
+import { PodcastDetail, Podcasts } from "./types";
 
 type TPodcasts = {
   getPodcasts: () => Promise<Podcasts | undefined>;
+  getPodcastById: (id: string) => Promise<PodcastDetail | undefined> 
 };
 
 export const PodcastsService: TPodcasts = {
@@ -17,4 +18,13 @@ export const PodcastsService: TPodcasts = {
       console.log("Ha ocurrido un error:", e);
     }
   },
+  getPodcastById: async (id: string) => {
+    try {
+      const response = await httpClient.get<Promise<PodcastDetail>>(`lookup?id=${id}`);
+
+      return response.data
+    }  catch (e) {
+      console.log("Ha ocurrido un error:", e);
+    }
+  }
 };

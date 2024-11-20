@@ -8,8 +8,13 @@ import { PodcastCounter } from "./components/PodcastCounter";
 const INPUT_PLACEHOLDER = "Filter podcasts...";
 
 const Home: FC = () => {
-  const { podcasts, handleFilterPodcasts, podcastCounter, search } =
-    useHomeController();
+  const {
+    podcasts,
+    handleFilterPodcasts,
+    podcastCounter,
+    search,
+    goToPodcastDetail,
+  } = useHomeController();
 
   return (
     <Container>
@@ -25,9 +30,11 @@ const Home: FC = () => {
       <Grid>
         {podcasts?.map((podcast) => (
           <PodcastCard
+            key={podcast.id.attributes["im:id"]}
             title={podcast["im:name"].label}
             author={podcast["im:artist"].label}
             image={getPodcastImage(podcast["im:image"])}
+            onClick={() => goToPodcastDetail(podcast.id.attributes["im:id"])}
           />
         ))}
       </Grid>

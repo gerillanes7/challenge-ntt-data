@@ -5,13 +5,19 @@ type PodcastCardProps = {
   title: string;
   author: string;
   image: string;
+  onClick: () => void;
 };
 
-export const PodcastCard: FC<PodcastCardProps> = ({ title, author, image }) => {
+export const PodcastCard: FC<PodcastCardProps> = ({
+  title,
+  author,
+  image,
+  onClick,
+}) => {
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       <ImageContainer>
-        <Image src={image} />
+        <Image src={image} alt={`${image}-${title}`} />
       </ImageContainer>
       <Title>{title}</Title>
       <Author>Author: {author}</Author>

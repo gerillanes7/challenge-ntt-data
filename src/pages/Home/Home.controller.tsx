@@ -1,8 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useGetPodcasts } from "./hooks/useGetPodcasts";
 import { Entry } from "@/services/types";
+import { useNavigate } from "react-router-dom";
+import { NavigationPaths } from "@/routing/constants";
 
 export const useHomeController = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
   const [podcasts, setPodcasts] = useState<Entry[]>([]);
   const [podcastCounter, setPodcastCounter] = useState<number>(0);
@@ -13,7 +16,7 @@ export const useHomeController = () => {
     const value = e.target.value;
 
     setSearch(value);
-    
+
     const filteredPodcasts = data?.feed?.entry.filter(
       (podcast) =>
         podcast["im:name"].label
@@ -28,6 +31,10 @@ export const useHomeController = () => {
     setPodcastCounter(filteredPodcasts.length);
   };
 
+  const goToPodcastDetail = (id: string) => {
+    navigate(`/${NavigationPaths.PODCAST}/${id}`);
+  };
+
   useEffect(() => {
     if (data?.feed?.entry?.length) {
       setPodcasts(data.feed.entry);
@@ -35,5 +42,12 @@ export const useHomeController = () => {
     }
   }, [data?.feed.entry]);
 
-  return { podcasts, isLoading, handleFilterPodcasts, podcastCounter, search };
+  return {
+    podcasts,
+    isLoading,
+    handleFilterPodcasts,
+    podcastCounter,
+    search,
+    goToPodcastDetail,
+  };
 };
