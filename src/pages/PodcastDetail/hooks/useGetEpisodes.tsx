@@ -1,3 +1,4 @@
+import { CACHE_TIME } from "@/constants";
 import { useLoaderStore } from "@/stores/loadingStore";
 import { LOADING_STATES } from "@/stores/loadingStore/constants";
 import axios from "axios";
@@ -21,7 +22,23 @@ export const useGetEpisodes = () => {
 
   const handleGetEpisodes = async (feedUrl: string) => {
     if (!feedUrl) return;
+
+    const cachedData = localStorage.getItem(`${feedUrl}-episodes-cache`);
+
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      const cacheDate = new Date(parsedData.cacheDate).getTime();
+      const currentDate = new Date().getTime();
+
+      if (currentDate - cacheDate < CACHE_TIME) {
+        setEpisodes(parsedData.episodes);
+        setPodcastDescription(parsedData.description);
+        return;
+      }
+    }
+
     setLoading(LOADING_STATES.LOADING);
+
     try {
       const feedResponse = await axios.get(`https://cors-anywhere.herokuapp.com/${feedUrl}`);
       const feedJson = await parseStringPromise(feedResponse.data);
@@ -38,9 +55,18 @@ export const useGetEpisodes = () => {
       );
 
       const description = feedJson.rss.channel[0].description[0];
+      
 
       setEpisodes(episodesFetched);
       setPodcastDescription(description);
+
+      const cacheData = {
+        cacheDate: new Date().toISOString(),
+        episodes: episodesFetched,
+        description
+      };
+
+      localStorage.setItem(`${feedUrl}-episodes-cache`, JSON.stringify(cacheData));
     } catch (e) {
       console.log("Ocurrió un error: ", e);
     } finally {
