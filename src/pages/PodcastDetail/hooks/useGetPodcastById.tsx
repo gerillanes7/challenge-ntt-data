@@ -8,7 +8,8 @@ export const useGetPodcastById = (id: string) => {
   const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEY, id],
     queryFn: () => PodcastsService.getPodcastById(id),
-    staleTime: CACHE_TIME
+    staleTime: CACHE_TIME,
+    gcTime: CACHE_TIME
   });
 
   return {

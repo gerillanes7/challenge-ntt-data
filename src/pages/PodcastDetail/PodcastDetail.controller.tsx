@@ -20,7 +20,11 @@ export const usePodcastDetailController = () => {
 
   const goToEpisodeDetail = (episode: Episode) => {
     const { id } = episode;
-    const normalizedId = normalizeEpisodeId(id);
+
+    let normalizedId = normalizeEpisodeId(id);
+
+    if (!normalizedId) normalizedId = episode.title;
+
     navigate(`${NavigationPaths.EPISODE}/${normalizedId}`, {
       state: episode,
     });
