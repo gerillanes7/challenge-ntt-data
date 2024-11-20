@@ -1,4 +1,5 @@
 import { CACHE_TIME } from "@/constants";
+import { formatDuration } from "@/helpers/formatDuration";
 import { useLoaderStore } from "@/stores/loadingStore";
 import { LOADING_STATES } from "@/stores/loadingStore/constants";
 import axios from "axios";
@@ -40,7 +41,9 @@ export const useGetEpisodes = () => {
     setLoading(LOADING_STATES.LOADING);
 
     try {
-      const feedResponse = await axios.get(`https://cors-anywhere.herokuapp.com/${feedUrl}`);
+      const feedResponse = await axios.get(
+        `https://cors-anywhere.herokuapp.com/${feedUrl}`
+      );
       const feedJson = await parseStringPromise(feedResponse.data);
 
       const episodesFetched = feedJson.rss.channel[0].item.map(
@@ -49,13 +52,14 @@ export const useGetEpisodes = () => {
           description: episode?.description[0],
           pubDate: new Date(episode.pubDate[0]).toLocaleDateString("es-ES"),
           audioUrl: episode.enclosure[0].$.url,
-          duration: episode["itunes:duration"][0],
+          duration: episode["itunes:duration"][0].includes(":")
+            ? episode["itunes:duration"][0]
+            : formatDuration(+episode["itunes:duration"][0]),
           id: episode.guid[0]._,
         })
       );
 
       const description = feedJson.rss.channel[0].description[0];
-      
 
       setEpisodes(episodesFetched);
       setPodcastDescription(description);
@@ -63,10 +67,13 @@ export const useGetEpisodes = () => {
       const cacheData = {
         cacheDate: new Date().toISOString(),
         episodes: episodesFetched,
-        description
+        description,
       };
 
-      localStorage.setItem(`${feedUrl}-episodes-cache`, JSON.stringify(cacheData));
+      localStorage.setItem(
+        `${feedUrl}-episodes-cache`,
+        JSON.stringify(cacheData)
+      );
     } catch (e) {
       console.log("Ocurrió un error: ", e);
     } finally {

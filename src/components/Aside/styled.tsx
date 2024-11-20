@@ -44,6 +44,7 @@ export const DescriptionLabel = styled.strong``;
 export const DescriptionContent = styled.span`
   font-size: 14px;
   font-style: italic;
+  overflow-wrap: break-word;
 `;
 
-export const DescriptionContentDiv = styled.div``
+export const DescriptionContentDiv = styled.div``;

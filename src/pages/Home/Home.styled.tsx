@@ -16,6 +16,7 @@ export const FilterInput = styled.input`
   border-radius: 6px;
   border: 1px solid #d6dbdf;
   font-size: 16px;
+  padding: 0 8px;
 `;
 
 export const Grid = styled.div`
@@ -25,4 +26,5 @@ export const Grid = styled.div`
   grid-gap: 20px;
   row-gap: 200px;
   margin-top: 120px;
+  padding: 16px;
 `;

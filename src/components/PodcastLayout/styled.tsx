@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.section`
   display: flex;
   gap: 80px;
-  padding: 0 16px;
+  padding: 0 32px;
 `;
 
 export const FirstColumn = styled.div`

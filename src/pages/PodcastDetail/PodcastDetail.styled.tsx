@@ -7,7 +7,7 @@ export const Container = styled.section`
   flex-direction: column;
 `;
 
-export const CounterContainer = styled.div`
+export const BoxContainer = styled.div`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   justify-content: center;

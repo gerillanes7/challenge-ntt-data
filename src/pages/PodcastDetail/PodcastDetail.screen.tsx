@@ -1,7 +1,7 @@
 import { FC } from "react";
 import {
   Container,
-  CounterContainer,
+  BoxContainer,
   HeaderTitle,
 } from "./PodcastDetail.styled";
 import { usePodcastDetailController } from "./PodcastDetail.controller";
@@ -12,13 +12,15 @@ const PodcastDetail: FC = () => {
 
   return (
     <Container>
-      <CounterContainer>
+      <BoxContainer>
         <HeaderTitle>Episodes: {episodes?.length}</HeaderTitle>
-      </CounterContainer>
+      </BoxContainer>
 
-      <CounterContainer>
-        <Table data={episodes} onClick={goToEpisodeDetail} />
-      </CounterContainer>
+      {episodes?.length > 0 && (
+        <BoxContainer>
+          <Table data={episodes} onClick={goToEpisodeDetail} />
+        </BoxContainer>
+      )}
     </Container>
   );
 };
