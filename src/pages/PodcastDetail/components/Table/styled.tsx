@@ -24,10 +24,10 @@ export const TableHeader = styled.tr`
   }
 `;
 
-export const TableRow = styled.tr<{ isEven: boolean }>`
+export const TableRow = styled.tr<{ $isEven: boolean }>`
   text-align: left;
   border-bottom: 1.5px solid #f1f2f7;
-  background-color: ${({ isEven }) => (isEven ? "#F9F9F9" : "#fff")};
+  background-color: ${({ $isEven }) => ($isEven ? "#F9F9F9" : "#fff")};
 
   td {
     padding: 12px 0;

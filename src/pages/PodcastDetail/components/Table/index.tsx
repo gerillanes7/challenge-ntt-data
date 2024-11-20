@@ -44,7 +44,7 @@ const DataRow: FC<DataRowProps> = ({
   audio,
   description,
 }) => (
-  <TableRow isEven={isEven}>
+  <TableRow $isEven={isEven}>
     <td
       onClick={() =>
         onClick({
@@ -81,7 +81,7 @@ export const Table: FC<TableProps> = ({ data, onClick }) => {
             isEven={i % 2 === 0}
             onClick={onClick}
             title={row.title}
-            key={row.id}
+            key={`${row.id}-${row.title}`}
           />
         ))}
       </tbody>

@@ -38,7 +38,7 @@ export const Aside: FC<AsideProps> = ({
       <Divider />
       <InfoContainer>
         <DescriptionLabel>Description</DescriptionLabel>
-        {description.includes("<p>") ? (
+        {description.includes("<") ? (
           <DescriptionContentDiv dangerouslySetInnerHTML={{__html: description}}/>
         ) : (
           <DescriptionContent>{description}</DescriptionContent>
