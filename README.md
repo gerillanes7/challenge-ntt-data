@@ -20,7 +20,7 @@ Sigue estos pasos para levantar el proyecto en tu entorno local:
 
 ### 2. Instalar dependencias
 
-```cd podcaster```
+```cd challenge-ntt-data```
 ```npm install```
 
 ### 3. Levantar el servidor de desarrollo
